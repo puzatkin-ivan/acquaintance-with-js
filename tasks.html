@@ -11,7 +11,6 @@
       console.log("Задание 1");
       console.log(planetName, userName);
     </script>
-
     <script type="text/javascript">
       var user;
         user = {
@@ -30,14 +29,10 @@
          } else {
              alert("Пароль Неверен");
          }
-
       } else if (user.login == null) {
           alert("Вход Отменён");
-
       } else {
-
           alert("Я Тебя не знаю");
-
       }
     </script>
     <script type="text/javascript">
@@ -49,7 +44,6 @@
       while (digit != 10) {
         digit = digit + 2;
         console.log(digit)
-
       }
     </script>
     <script type="text/javascript">
@@ -61,15 +55,11 @@
 
     Prime:
       for (digit = 2; digit <= 10; digit++ ) {
-
-          for (previusDigit = 2; previusDigit < digit; previusDigit++){
-
-            if (digit % previusDigit == 0) continue Prime;
-
-          }
+        for (previusDigit = 2; previusDigit < digit; previusDigit++){
+          if (digit % previusDigit == 0) continue Prime;
+        }
 
         console.log(digit);
-
       }
     </script>
   </body>
