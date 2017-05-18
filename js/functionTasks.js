@@ -16,7 +16,6 @@ function authorization() {
     };
 
   if (user.login == "Админ") {
-
     user.password = prompt("Введите Ваш Пароль", "");
 
     if (user.password == "Тёмный Властелин") {
@@ -29,15 +28,12 @@ function authorization() {
 
   } else if (user.login == null) {
       alert("Вход Отменён");
-
   } else {
-
       alert("Я Тебя не знаю");
-
   }
 }
 
-function even() {
+function showEven() {
   var digit = 0;
 
   alert("Задание 3 в консоли");
@@ -47,10 +43,9 @@ function even() {
     digit = digit + 2;
     console.log(digit);
   }
-
 }
 
-function primeDigit() {
+function showDigit() {
   var digit;
   var previusDigit;
 
@@ -59,11 +54,8 @@ function primeDigit() {
 
   Prime:
     for (digit = 2; digit <= 10; digit++ ) {
-
       for (previusDigit = 2; previusDigit < digit; previusDigit++){
-
         if (digit % previusDigit == 0) continue Prime;
-
       }
 
       console.log(digit);
@@ -72,5 +64,5 @@ function primeDigit() {
 
 printName();
 authorization();
-even();
-primeDigit()
+showEven();
+showDigit();
