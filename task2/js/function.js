@@ -4,8 +4,7 @@ function addListItem() {
   let li = document.createElement('li');
   let inputItem = document.createElement('input');
   let textElem = document.createTextNode('Item');
-  let textElemNum = document.createTextNode(numberItem);
- 
+  let textElemNum = document.createTextNode(numberItem); 
  
   li.appendChild(textElem);
   li.appendChild(textElemNum);
