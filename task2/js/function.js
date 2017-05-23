@@ -19,7 +19,7 @@ function addListItem(numberItem) {
   let textElem = document.createTextNode('Item' + numberItem);
 
   textItem.type = "text";
-  textItem.id = "textItem" + numberItem;
+  textItem.id = "textItem" + numberItem;  
   textItem.value = "Item" + numberItem;
 
   checkboxItem.type = "checkbox";
@@ -35,7 +35,6 @@ function removeItem() {
   let lengthList = document.getElementById("list").childNodes.length; 
   if (lengthList != 0) {
     let numberItem = 1;
-    let amountItem = document.getElementById("list").childNodes.length;
     let item = document.getElementById("box" + numberItem);
     let buttonRemove = document.getElementById("buttonRemoveItems"); 
 
