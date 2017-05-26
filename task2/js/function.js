@@ -21,11 +21,14 @@ function addListItem(numberItem) {
   let parent = document.getElementById("list");
   let li = document.createElement('li');
   let checkboxItem = document.createElement('input');
-  let textItem =  document.createElement('input');
+  let textItem = document.createElement('input');
 
   textItem.type = "text";
   textItem.id = "textItem" + numberItem;
   textItem.value = "Item" + numberItem;
+  textItem.addEventListener("keydown", function () {
+    editListItem(textItem);
+  });
 
   checkboxItem.type = "checkbox";
   checkboxItem.id = "box" + numberItem;
@@ -77,4 +80,12 @@ function removeItem() {
   }
 
   buttonRemove.disabled = "true";
+}
+
+function editListItem(input) {
+  let keyEnter = window.event.keyCode;
+
+  if (keyEnter === 13) {
+    alert("Подвердите новое название");
+  }
 }
