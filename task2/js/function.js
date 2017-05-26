@@ -1,63 +1,80 @@
+createList();
 
-List();
+function createList() {
+  let buttonAdd = document.getElementById("buttonAddItem");
+  let buttonClean = document.getElementById("buttonCleanList");
+  let buttonRemove = document.getElementById("buttonRemoveItems");
+  let numberItem = 1;
 
-function cleanList() {
-  let parent = document.getElementById("list");
-
-  while (parent.childNodes.length != 0) {
-    parent.removeChild(parent.lastChild);
-  }
-
-  return document.getElementById("list").childNodes.length
+  buttonAdd.addEventListener("click", function () {
+    addListItem(numberItem);
+    ++numberItem;
+  });
+  buttonClean.addEventListener("click", function () {
+    cleanList();
+    numberItem = 1;
+  });
+  buttonRemove.addEventListener("click", removeItem);
 }
 
 function addListItem(numberItem) {
   let parent = document.getElementById("list");
-  let li = document.createElement('li');  
+  let li = document.createElement('li');
   let checkboxItem = document.createElement('input');
   let textItem =  document.createElement('input');
-  let textElem = document.createTextNode('Item' + numberItem);
 
   textItem.type = "text";
-  textItem.id = "textItem" + numberItem;  
+  textItem.id = "textItem" + numberItem;
   textItem.value = "Item" + numberItem;
 
   checkboxItem.type = "checkbox";
   checkboxItem.id = "box" + numberItem;
   li.id = "item" + numberItem;
+  li.type = "none";
 
+  checkboxItem.addEventListener("click", includeButtonRemove);
   li.appendChild(checkboxItem);
   li.appendChild(textItem);
   parent.appendChild(li);
 }
 
-function removeItem() {
-  let lengthList = document.getElementById("list").childNodes.length; 
-  if (lengthList != 0) {
-    let numberItem = 1;
-    let item = document.getElementById("box" + numberItem);
-    let buttonRemove = document.getElementById("buttonRemoveItems"); 
+function includeButtonRemove() {
+  let buttonRemove = document.getElementById("buttonRemoveItems");
 
-    buttonRemove.disabled = false;
-  }  
+  buttonRemove.disabled = false;
 }
 
-function List() {
-  let buttonAdd = document.getElementById("buttonAddItem");
-  let buttonClean = document.getElementById("buttonCleanList")
-  let buttonRemove = document.getElementById("buttonRemoveItems");  
-  let numberItem = 1; 
+function cleanList() {
+  let parent = document.getElementById("list");
+  let buttonRemove = document.getElementById("buttonRemoveItems");
 
-  buttonAdd.onclick = function add() { 
-    let lengthList = document.getElementById("list").childNodes.length; 
-    
-    if (lengthList == 0) {
-      numberItem = 1;
-    }
+  while (parent.childNodes.length !== 0) {
+    let item = parent.lastChild;
+    let checkboxItem = item.firstChild;
 
-    addListItem(numberItem);
-    ++numberItem
+    checkboxItem.removeEventListener("click", includeButtonRemove());
+    parent.removeChild(item);
   }
 
-  buttonClean.onclick = cleanList;
+  buttonRemove.disabled = true;
+}
+
+function removeItem() {
+  let parent = document.getElementById("list");
+  let numberItem = parent.childNodes.length;
+  let buttonRemove = document.getElementById("buttonRemoveItems");
+
+  while (numberItem !== 0) {
+    let item = parent.childNodes[numberItem - 1];
+    let checkboxItem = item.firstChild;
+
+    if (checkboxItem.checked) {
+      checkboxItem.removeEventListener("click", includeButtonRemove());
+      item.remove();
+    }
+
+    numberItem = numberItem - 1;
+  }
+
+  buttonRemove.disabled = "true";
 }
