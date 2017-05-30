@@ -6,11 +6,11 @@ function createList() {
   let buttonRemove = document.getElementById("buttonRemoveItems");
   let numberItem = 1;
 
-  buttonAdd.addEventListener("click", function () {
+  buttonAdd.addEventListener("click", function() {
     addListItem(numberItem);
     ++numberItem;
   });
-  buttonClean.addEventListener("click", function () {
+  buttonClean.addEventListener("click", function() {
     cleanList();
     numberItem = 1;
   });
@@ -26,25 +26,38 @@ function addListItem(numberItem) {
   textItem.type = "text";
   textItem.id = "textItem" + numberItem;
   textItem.value = "Item" + numberItem;
-  textItem.addEventListener("keydown", function () {
+  textItem.addEventListener("keydown", function() {
     editListItem(textItem);
   });
 
   checkboxItem.type = "checkbox";
-  checkboxItem.id = "box" + numberItem;
+  checkboxItem.name = "box";
   li.id = "item" + numberItem;
   li.type = "none";
 
-  checkboxItem.addEventListener("click", includeButtonRemove);
+  checkboxItem.addEventListener("click", function() {
+    enableButtonRemove();
+  });
   li.appendChild(checkboxItem);
   li.appendChild(textItem);
   parent.appendChild(li);
 }
 
-function includeButtonRemove() {
+function enableButtonRemove() {
   let buttonRemove = document.getElementById("buttonRemoveItems");
+  let inputCheckbox = document.getElementsByName("box")
+  let numberCheckbox = inputCheckbox.length;
 
-  buttonRemove.disabled = false;
+  while (numberCheckbox !== 0) {
+    let inputCheckboxItem = inputCheckbox[numberCheckbox - 1];
+    if (inputCheckboxItem.checked) {
+      buttonRemove.disabled = false;
+      break;
+    } else {
+      buttonRemove.disabled = true;
+    }
+    numberCheckbox = numberCheckbox - 1;
+  }
 }
 
 function cleanList() {
@@ -55,7 +68,7 @@ function cleanList() {
     let item = parent.lastChild;
     let checkboxItem = item.firstChild;
 
-    checkboxItem.removeEventListener("click", includeButtonRemove());
+    checkboxItem.removeEventListener("click", enableButtonRemove);
     parent.removeChild(item);
   }
 
@@ -72,20 +85,20 @@ function removeItem() {
     let checkboxItem = item.firstChild;
 
     if (checkboxItem.checked) {
-      checkboxItem.removeEventListener("click", includeButtonRemove());
+      checkboxItem.removeEventListener("click", enableButtonRemove);
       item.remove();
     }
 
     numberItem = numberItem - 1;
   }
 
-  buttonRemove.disabled = "true";
+  buttonRemove.disabled = true;
 }
 
 function editListItem(input) {
-  let keyEnter = window.event.keyCode;
+  let key = window.event.keyCode;
 
-  if (keyEnter === 13) {
-    alert("Подвердите новое название");
+  if (key === 13) {
+    input.disabled = true;
   }
 }
