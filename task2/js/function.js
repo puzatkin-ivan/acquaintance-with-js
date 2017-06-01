@@ -10,10 +10,12 @@ function createList() {
     addListItem(numberItem);
     ++numberItem;
   });
+
   buttonClean.addEventListener("click", function() {
     cleanList();
     numberItem = 1;
   });
+
   buttonRemove.addEventListener("click", removeItem);
 }
 
@@ -32,12 +34,11 @@ function addListItem(numberItem) {
 
   checkboxItem.type = "checkbox";
   checkboxItem.name = "box";
+
   li.id = "item" + numberItem;
   li.type = "none";
 
-  checkboxItem.addEventListener("click", function() {
-    enableButtonRemove();
-  });
+  checkboxItem.addEventListener("click", enableButtonRemove);
   li.appendChild(checkboxItem);
   li.appendChild(textItem);
   parent.appendChild(li);
@@ -45,7 +46,7 @@ function addListItem(numberItem) {
 
 function enableButtonRemove() {
   let buttonRemove = document.getElementById("buttonRemoveItems");
-  let inputCheckbox = document.getElementsByName("box")
+  let inputCheckbox = document.getElementsByName("box");
   let numberCheckbox = inputCheckbox.length;
 
   while (numberCheckbox !== 0) {
