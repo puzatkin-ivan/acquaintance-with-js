@@ -8,7 +8,8 @@ canvas.width = WIDTH_CANVAS;
 canvas.height = HEIGHT_CANVAS;
 
 createSky();
-showSoon();
+showSun();
+moveCloud(50, 50);
 createLawn();
 createHome();
 showRabbit();
@@ -16,22 +17,36 @@ showRabbit();
 function createSky() {
   canvasContext.fillStyle = "#86b0db";
   canvasContext.fillRect(0, 0, WIDTH_CANVAS, 350);
-
-  let imgCloud = new Image();
-  imgCloud.src = 'spriteCanvas.png';
-  imgCloud.addEventListener("load", function() {
-    canvasContext.drawImage(imgCloud, 300, 70, 200, 150, 50, 10, 120, 80);
-    canvasContext.drawImage(imgCloud, 300, 70, 200, 150, 150, 50, 120, 80);
-    canvasContext.drawImage(imgCloud, 300, 70, 200, 150, 250, 25, 120, 80);
-    canvasContext.drawImage(imgCloud, 300, 70, 200, 150, 400, 5, 120, 80);
-    canvasContext.drawImage(imgCloud, 300, 70, 200, 150, 500, 40, 120, 80);
-    canvasContext.drawImage(imgCloud, 300, 70, 200, 150, 550, 5, 120, 80);
-    canvasContext.drawImage(imgCloud, 300, 70, 200, 150, 650, 45, 120, 80);
-    canvasContext.drawImage(imgCloud, 300, 70, 200, 150, 800, 10, 120, 80);
-  });
 }
 
-function showSoon() {
+
+function moveCloud(x, y) {
+  showCloud(x, y);
+  showCloud(x + 70, y + 50);
+  showCloud(x + 175, y + 40);
+  showCloud(x + 250, y + 10);
+  showCloud(x + 300, y + 70);
+  showCloud(x + 400, y + 35);
+  showCloud(x + 500, y + 20);
+  showCloud(x + 600, y + 10);
+  showCloud(x + 700, y);
+  showCloud(x + 800, y + 35);
+  showCloud(x + 900, y + 10);
+}
+
+function showCloud(xCloud, yCloud) {
+  canvasContext.beginPath();
+  canvasContext.fillStyle = "white";
+  canvasContext.moveTo(xCloud, yCloud);
+  canvasContext.quadraticCurveTo(xCloud - 25, yCloud - 35, xCloud + 40, yCloud - 20);
+  canvasContext.quadraticCurveTo(xCloud + 105, yCloud - 45, xCloud + 75, yCloud + 15);
+  canvasContext.quadraticCurveTo(xCloud + 20 , yCloud + 40, xCloud, yCloud + 20);
+  canvasContext.quadraticCurveTo(xCloud - 25, yCloud + 20, xCloud, yCloud);
+  canvasContext.closePath();
+  canvasContext.fill();
+}
+
+function showSun() {
     canvasContext.arc(1100, 60, 45, 0, 2 * Math.PI);
     canvasContext.fillStyle = '#e1ff00';
     canvasContext.fill();
@@ -88,10 +103,10 @@ function createChimney() {
 }
 
 function showRabbit() {
-    let img2 = new Image();
+    let rabbit = new Image();
 
-    img2.src = 'spriteCanvas.png';
-    img2.addEventListener("load", function() {
-      canvasContext.drawImage(img2, 0, 0, 300, 450, 800, 250, 250, 350)
+    rabbit.src = 'spriteCanvas.png';
+    rabbit.addEventListener("load", function() {
+      canvasContext.drawImage(rabbit, 0, 0, 300, 450, 800, 250, 250, 350)
     });
 }
