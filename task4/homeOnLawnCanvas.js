@@ -55,12 +55,25 @@ function showSun() {
 function createLawn() {
     canvasContext.fillStyle = "#4ee239";
     canvasContext.fillRect(0, 350, WIDTH_CANVAS, 450);
-    createHerb();
+    createHerb(10, 500);
+    createHerb(550, 400);
+    createHerb(600, 500);
+    createHerb(800, 450);
 }
 
-function createHerb() {
-
+function createHerb(x, y) {
+  canvasContext.beginPath();
+  canvasContext.moveTo(x, y);
+  canvasContext.strokeStyle = "#1dab28";
+  canvasContext.lineWidth = 5;
+  canvasContext.lineTo(x + 10, y + 10);
+  canvasContext.lineTo(x + 10, y - 10);
+  canvasContext.moveTo(x + 10, y + 10);
+  canvasContext.lineTo(x + 20, y);
+  canvasContext.closePath();
+  canvasContext.stroke()
 }
+
 
 function createHome() {
     canvasContext.fillStyle = "#923b13";
