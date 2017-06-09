@@ -7,142 +7,186 @@ let canvasContext = canvas.getContext("2d");
 canvas.width = WIDTH_CANVAS;
 canvas.height = HEIGHT_CANVAS;
 
+class cloud {
+  constructor (xCloud, yCloud, xStep) {
+    this.x = xCloud;
+    this.y = yCloud;
+    this.slip = xStep;
+  }
 
-function moveCloud(xCloud) {
-  drawCloud(xCloud, 50);
-  drawCloud(xCloud + 100, 75);
-  drawCloud(xCloud + 50, 150);
+  draw(context) {
+    context.beginPath();
+    context.fillStyle = "#ffffff";
+    context.strokeStyle = "#ffffff";
+    context.moveTo(this.x, this.y);
+    context.quadraticCurveTo(this.x - 25, this.y - 35, this.x + 40, this.y - 20);
+    context.quadraticCurveTo(this.x + 105, this.y - 45, this.x + 75, this.y + 15);
+    context.quadraticCurveTo(this.x + 20 , this.y + 40, this.x, this.y + 20);
+    context.quadraticCurveTo(this.x - 25, this.y + 20, this.x, this.y);
+    context.closePath();
+    context.fill();
+    context.stroke();
+    if (this.x > 1200) {
+      this.x = -150;
+    }
+    this.x += this.slip;
+  }
 }
-let xCloud = 50;
-let timeBetweenJump = 50;
-let animatedCanvas = function() {
-  drawAll();
+const cloud1 = new cloud(100, 50, 2);
+const cloud2 = new cloud(150, 30, 3);
+const cloud3 = new cloud(250, 35, 10);
+const cloud4 = new cloud(350, 30, 7);
+const cloud5 = new cloud(450, 50, 4);
+const cloud6 = new cloud(450, 60, 1);
 
-  moveCloud(xCloud);
+function drawSkyAndSun(context) {
+  context.fillStyle = "#1f64ff";
+  context.fillRect(0, 0, WIDTH_CANVAS, HEIGHT_CANVAS);
 
-  timeBetweenJump -= 1;
-  xCloud += 2;
+  context.arc(1100, 60, 45, 0, 2 * Math.PI);
+  context.fillStyle = "#e1ff00";
+  context.fill();
 
-  if (timeBetweenJump === 0) {
-    jumpRabbit();
-    timeBetweenJump = 50;
-  } else {
-    drawRabbit(250);
+  cloud1.draw(canvasContext);
+  cloud2.draw(canvasContext);
+  cloud3.draw(canvasContext);
+  cloud4.draw(canvasContext);
+  cloud5.draw(canvasContext);
+  cloud6.draw(canvasContext);
+}
+
+class herb {
+  constructor (xHerb, yHerb) {
+    this.x = xHerb;
+    this.y = yHerb;
   }
 
-  if (xCloud > 1100) {
-    xCloud = 0;
-    requestAnimationFrame(animatedCanvas);
-  } else {
-    requestAnimationFrame(animatedCanvas);
+  draw(context) {
+    context.beginPath();
+    context.moveTo(this.x, this.y);
+    context.strokeStyle = "#1dab28";
+    context.lineWidth = 5;
+    context.lineTo(this.x + 10, this.y + 10);
+    context.lineTo(this.x + 10, this.y - 10);
+    context.moveTo(this.x + 10, this.y + 10);
+    context.lineTo(this.x + 20, this.y);
+    context.closePath();
+    context.stroke()
   }
+}
+const herb1 = new herb(40, 400);
+const herb2 = new herb(500, 400);
+const herb3 = new herb(600, 600);
+const herb4 = new herb(25, 550);
+const herb5 = new herb(800, 400);
+const herb6 = new herb(1100, 600);
+const herb7 = new herb(500, 750);
+const herb8 = new herb(550, 450);
+const herb9 = new herb(30, 450);
+const herb10 = new herb(10, 400);
+const herb11 = new herb(1000, 400);
+
+function drawLawn(context) {
+  context.fillStyle = "#44ff25";
+  context.fillRect(0, 350, WIDTH_CANVAS, HEIGHT_CANVAS);
+
+  herb1.draw(context);
+  herb2.draw(context);
+  herb3.draw(context);
+  herb4.draw(context);
+  herb5.draw(context);
+  herb6.draw(context);
+  herb7.draw(context);
+  herb8.draw(context);
+  herb9.draw(context);
+  herb10.draw(context);
+  herb11.draw(context);
+}
+
+class windowHome {
+  constructor(xWindow, yWindow, widthWindow, hWindow) {
+    this.x = xWindow;
+    this.y = yWindow;
+    this.widthW = widthWindow;
+    this.hWindow = hWindow;
+  }
+
+  draw(context) {
+    context.beginPath();
+    context.fillStyle = "#fff";
+    context.strokeStyle = "#abc";
+    context.fillRect(this.x, this.y, this.widthW, this.hWindow);
+    context.closePath();
+  }
+}
+const windowHome1 = new windowHome(195, 375, 65, 105);
+const windowHome2 = new windowHome(295, 375, 65, 105);
+const windowHome3 = new windowHome(395, 375, 65, 105);
+
+class home {
+  constructor(xHome, yHome, wHome, heightHome, colorHome) {
+    this.x = xHome;
+    this.y = yHome;
+    this.wHome = wHome;
+    this.heightHome = heightHome;
+    this.colorHome = colorHome;
+  }
+
+  draw(context) {
+    context.fillStyle = this.colorHome;
+    context.fillRect(this.x, this.y, this.wHome, this.heightHome);
+
+    context.fillStyle = "brown";
+    context.fillRect(195, 145, 35, 110);
+
+    context.beginPath();
+    context.fillStyle = "#371b07";
+    context.strokeStyle = "#000000";
+    context.lineWidth = 5;
+    context.moveTo(325, 120);
+    context.lineTo(125, 300);
+    context.lineTo(525, 300);
+    context.lineTo(325, 120);
+    context.fill();
+    context.stroke();
+
+    windowHome1.draw(context);
+    windowHome2.draw(context);
+    windowHome3.draw(context);
+  }
+}
+const mainHome = new home(150, 300, 350, 300, "#923b13");
+
+class rabbit {
+  constructor (xRabbit, yRabbit) {
+    this.x = xRabbit;
+    this.y = yRabbit;
+  }
+
+  drawRabbit(context) {
+    let rabbit = document.getElementById("rabbit");
+    context.drawImage(rabbit, 0, 0, 350, 500, this.x, this.y, 300, 450);
+  }
+}
+const bigRabbit = new rabbit(800, 400, 5);
+
+function jumpRabbit(objectRabbit, context, stepJump) {
+  objectRabbit.drawRabbit(context);
+
+  objectRabbit.y += stepJump;
+}
+
+let stepJumpRabbit = -25;
+let moveCloud = function () {
+  drawSkyAndSun(canvasContext);
+  drawLawn(canvasContext);
+  mainHome.draw(canvasContext);
+  jumpRabbit(bigRabbit, canvasContext, stepJumpRabbit);
+  stepJumpRabbit += 1;
+  if (stepJumpRabbit > 25) {
+    stepJumpRabbit = -25;
+  }
+  requestAnimationFrame(moveCloud);
 };
 
-animatedCanvas();
-
-function drawCloud(xCloud, yCloud) {
-  canvasContext.beginPath();
-  canvasContext.fillStyle = "white";
-  canvasContext.strokeStyle = "white";
-  canvasContext.moveTo(xCloud, yCloud);
-  canvasContext.quadraticCurveTo(xCloud - 25, yCloud - 35, xCloud + 40, yCloud - 20);
-  canvasContext.quadraticCurveTo(xCloud + 105, yCloud - 45, xCloud + 75, yCloud + 15);
-  canvasContext.quadraticCurveTo(xCloud + 20 , yCloud + 40, xCloud, yCloud + 20);
-  canvasContext.quadraticCurveTo(xCloud - 25, yCloud + 20, xCloud, yCloud);
-  canvasContext.closePath();
-  canvasContext.fill();
-  canvasContext.stroke();
-}
-
-function jumpRabbit() {
-  let yRabbit = 250;
-
-  for (let timeJumpTop = 100; timeJumpTop !== 0; timeJumpTop--) {
-    yRabbit -= 1;
-    drawRabbit(yRabbit);
-  }
-}
-
-function drawRabbit(yRabbit) {
-  let rabbit = document.getElementById("rabbit");
-
-  canvasContext.drawImage(rabbit, 0, 0, 350, 500, 800, yRabbit, 300, 450);
-}
-
-function drawAll(){
-  drawSky();
-  drawSun();
-  drawLawn();
-  drawHome();
-}
-
-function drawSky() {
-  canvasContext.fillStyle = "#86b0db";
-  canvasContext.fillRect(0, 0, WIDTH_CANVAS, 350);
-}
-
-function drawSun() {
-  canvasContext.arc(1100, 60, 45, 0, 2 * Math.PI);
-  canvasContext.fillStyle = '#e1ff00';
-  canvasContext.fill();
-}
-
-function drawLawn() {
-  canvasContext.fillStyle = "#4ee239";
-  canvasContext.fillRect(0, 350, WIDTH_CANVAS, 450);
-  drawHerb(10, 500);
-  drawHerb(550, 400);
-  drawHerb(600, 500);
-  drawHerb(800, 450);
-}
-
-function drawHerb(x, y) {
-  canvasContext.beginPath();
-  canvasContext.moveTo(x, y);
-  canvasContext.strokeStyle = "#1dab28";
-  canvasContext.lineWidth = 5;
-  canvasContext.lineTo(x + 10, y + 10);
-  canvasContext.lineTo(x + 10, y - 10);
-  canvasContext.moveTo(x + 10, y + 10);
-  canvasContext.lineTo(x + 20, y);
-  canvasContext.closePath();
-  canvasContext.stroke()
-}
-
-
-function drawHome() {
-    canvasContext.fillStyle = "#923b13";
-    canvasContext.fillRect(150, 300, 350, 300);
-    drawWindow();
-    drawHousetop();
-}
-
-function drawWindow() {
-  for (let numberWindow = 3; numberWindow !== 0; --numberWindow) {
-    canvasContext.fillStyle = "white";
-    canvasContext.fillRect(195, 375, 65, 105);
-    canvasContext.translate(100, 0);
-  }
-
-  canvasContext.translate(-300, 0);
-}
-
-function drawHousetop() {
-  drawChimney();
-  canvasContext.beginPath();
-  canvasContext.fillStyle = "#371b07";
-  canvasContext.strokeStyle = "#000000";
-  canvasContext.lineWidth = 5;
-  canvasContext.moveTo(325, 120);
-  canvasContext.lineTo(125, 300);
-  canvasContext.lineTo(525, 300);
-  canvasContext.lineTo(325, 120);
-  canvasContext.fill();
-  canvasContext.stroke();
-}
-
-function drawChimney() {
-  canvasContext.fillStyle = "brown";
-  canvasContext.fillRect(195, 145, 35, 110);
-}
-
+moveCloud();
