@@ -1,7 +1,6 @@
-# ipuzatkin-game
+# Шаблон проекта на socket.io
 
-## Документация
+## Как это развернуть
 
-- [Логлайн](https://drive.google.com/file/d/0BwpJq0oATdalbG9pSW5UUVhBZVk/view?usp=sharing)
-- [Майндмап](https://drive.google.com/file/d/0BwpJq0oATdalenVfYWlxQnhFZWc/view?usp=sharing)
-- [Роадмап](https://docs.google.com/spreadsheets/d/15w_y80UkTSeYMmzNJWCsJQqJ3iIw9_GwWUS7GJBw59M/edit?usp=sharing)
+- `npm install` - загрузка всех необходимых пакета для работы сервера
+- `npm run-script start` - сборка всех необходимых компонентов для клиета и сервера, запуск сервера
